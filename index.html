@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Trust Center</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --primary: #0b5bd3;
+      --bg: #f9fafc;
+      --card-bg: #fff;
+      --text: #333;
+    }
+    body {
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      margin: 0;
+      color: var(--text);
+    }
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 2rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    header p {
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+    }
+    main {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      padding: 1.5rem;
+      transition: transform 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+    }
+    .card h2 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+    .card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .card li {
+      margin: 0.5rem 0;
+    }
+    .card a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .card a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #eee;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Trust Center</h1>
+    <p>Transparency hub for our apps — privacy, terms, security, and licensing.</p>
+  </header>
+
+  <main>
+    <div class="grid">
+      <div class="card">
+        <h2>XtraHabit</h2>
+        <ul>
+          <li><a href="./XtraHabit/privacy.html">Privacy Policy</a></li>
+          <li><a href="./XtraHabit/terms.html">Terms of Service</a></li>
+          <li><a href="./XtraHabit/contact.html">Contact</a></li>
+          <li><a href="./XtraHabit/licenses.md">Open Source Licenses</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Xpensify</h2>
+        <ul>
+          <li><a href="./Xpensify/privacy.html">Privacy Policy</a></li>
+          <li><a href="./Xpensify/terms.html">Terms of Service</a></li>
+          <li><a href="./Xpensify/contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>XtraNote</h2>
+        <ul>
+          <li><a href="./XtraNote/privacy.html">Privacy Policy</a></li>
+          <li><a href="./XtraNote/terms.html">Terms of Service</a></li>
+          <li><a href="./XtraNote/contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 style="margin-top:2rem; color:var(--primary);">Shared Policies</h2>
+    <ul>
+      <li><a href="./shared/security.html">Security Practices</a></li>
+      <li><a href="./shared/data-safety.html">Google Play Data Safety Summary</a></li>
+      <li><a href="./shared/terms-global.html">Global Terms</a></li>
+    </ul>
+  </main>
+
+  <footer>
+    © 2026 — Trust Center
+  </footer>
+</body>
+</html>
