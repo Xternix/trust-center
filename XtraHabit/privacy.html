@@ -18,10 +18,7 @@
       padding: 1.5rem;
       text-align: center;
     }
-    header h1 {
-      margin: 0;
-      font-size: 1.8rem;
-    }
+    header h1 { margin: 0; font-size: 1.8rem; }
     main {
       max-width: 800px;
       margin: auto;
@@ -30,12 +27,14 @@
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     }
-    h2 {
-      color: #0b5bd3;
-      margin-top: 1.5rem;
-    }
-    ul {
-      padding-left: 1.2rem;
+    h2 { color: #0b5bd3; margin-top: 1.5rem; }
+    ul { padding-left: 1.2rem; }
+    .highlight {
+      background: #f0f4ff;
+      border-left: 4px solid #0b5bd3;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
     }
     footer {
       text-align: center;
@@ -49,50 +48,96 @@
 <body>
   <header>
     <h1>XtraHabit Privacy Policy</h1>
-    <p>Effective Date: January 20, 2026</p>
+    <p>Effective Date: May 7, 2026</p>
   </header>
 
   <main>
-    <h2>Information We Collect</h2>
+
+    <h2>1. Information We Collect</h2>
     <ul>
-      <li><strong>User-provided data:</strong> habits, reminders, notes, preferences.</li>
-      <li><strong>Device information:</strong> model, OS version, usage logs.</li>
-      <li><strong>Notification data:</strong> scheduling and delivery of reminders.</li>
-      <li><strong>Optional account data:</strong> email/profile if you sign in via Google, Microsoft, or Apple.</li>
+      <li><strong>User-provided data:</strong> habits, tasks, reminders, alarms, finance entries, timer sessions, notes, and preferences — all stored locally on your device.</li>
+      <li><strong>Device information:</strong> model, OS version, and usage logs used for crash reporting and performance improvement.</li>
+      <li><strong>Notification data:</strong> schedules and configurations for reminders and alarms, stored locally.</li>
+      <li><strong>Statistics and progress data:</strong> habit completion history, streak counts, task goal progress — stored locally on your device.</li>
+      <li><strong>Merchant memory:</strong> if you use the Finance Tracker, the app stores merchant-to-category mappings locally to auto-fill categories on future entries.</li>
+      <li><strong>SMS data (optional):</strong> bank and UPI transaction messages, only when you explicitly use the "Import from SMS" feature. See Section 3.</li>
     </ul>
 
-    <h2>How We Use Information</h2>
+    <h2>2. How We Use Information</h2>
     <ul>
-      <li><strong>Functionality:</strong> habit tracking, reminders, progress visualization.</li>
-      <li><strong>Personalization:</strong> improve usability and experience.</li>
-      <li><strong>Reliability:</strong> analytics/crash reporting to enhance performance.</li>
-      <li><strong>Notifications:</strong> deliver reminders at configured times.</li>
+      <li><strong>Core functionality:</strong> habit tracking, task management, reminders, alarms, timers (focus, stopwatch, workout, interval), finance tracking, and progress visualisation.</li>
+      <li><strong>Notifications and alarms:</strong> delivering reminders and alarm alerts at the times you configure, including on the lock screen.</li>
+      <li><strong>Reliability:</strong> anonymised crash reports and analytics to diagnose issues and improve the app.</li>
+      <li><strong>App updates:</strong> checking for and applying over-the-air (OTA) updates via Expo's update service. See Section 6.</li>
     </ul>
 
-    <h2>Data Sharing</h2>
+    <h2>3. SMS Data and the Finance Tracker</h2>
+    <div class="highlight">
+      The Finance Tracker is an optional feature. If you choose to use "Import from SMS", the app will request the READ_SMS permission.
+    </div>
+    <ul>
+      <li><strong>What we read:</strong> only financial SMS messages from banks and UPI services (transaction alerts, payment confirmations).</li>
+      <li><strong>Why we read it:</strong> to automatically create finance entries without manual input.</li>
+      <li><strong>On-device only:</strong> SMS data is processed entirely on your device. It is never uploaded to any server, shared with third parties, or stored outside the app.</li>
+      <li><strong>User-controlled:</strong> SMS is read only when you explicitly tap "Import from SMS" and grant the permission. You can revoke it any time in device Settings → Apps → XtraHabit → Permissions → SMS.</li>
+      <li><strong>No background monitoring:</strong> the app does not monitor incoming SMS or read messages in the background.</li>
+    </ul>
+
+    <h2>4. Device Permissions Explained</h2>
+    <ul>
+      <li><strong>POST_NOTIFICATIONS:</strong> to deliver habit reminders and alarm notifications.</li>
+      <li><strong>SCHEDULE_EXACT_ALARM / USE_EXACT_ALARM:</strong> to fire alarms at the precise time you set.</li>
+      <li><strong>USE_FULL_SCREEN_INTENT / SYSTEM_ALERT_WINDOW:</strong> to display alarm alerts as a full-screen overlay, including on the lock screen, so you don't miss an alarm.</li>
+      <li><strong>RECEIVE_BOOT_COMPLETED:</strong> to restore your alarm and reminder schedules automatically after a device restart.</li>
+      <li><strong>WAKE_LOCK:</strong> to keep the screen on during active timer sessions (focus timer, workout timer, stopwatch) when you have the keep-awake option enabled.</li>
+      <li><strong>MODIFY_AUDIO_SETTINGS / VIBRATE:</strong> to play alarm sounds at the volume you configure and trigger vibration for notifications.</li>
+      <li><strong>INTERNET:</strong> to check for and download over-the-air app updates. No personal data is sent.</li>
+      <li><strong>READ_SMS:</strong> only for the optional Finance Tracker SMS import feature. See Section 3.</li>
+      <li><strong>RECORD_AUDIO:</strong> declared by the expo-audio library included in the app. XtraHabit does not actively record audio.</li>
+      <li><strong>READ_EXTERNAL_STORAGE / WRITE_EXTERNAL_STORAGE:</strong> used by the app framework for accessing bundled sound assets. No personal files are read or written.</li>
+    </ul>
+
+    <h2>5. Data Storage</h2>
+    <ul>
+      <li><strong>All app data is stored locally</strong> on your device using AsyncStorage (a standard Android local storage mechanism).</li>
+      <li><strong>No cloud sync:</strong> XtraHabit does not sync your habits, tasks, finance entries, or any personal data to external servers.</li>
+      <li><strong>Uninstalling the app</strong> permanently deletes all locally stored data.</li>
+    </ul>
+
+    <h2>6. Over-the-Air (OTA) Updates</h2>
+    <p>XtraHabit uses Expo's update service to deliver app improvements without requiring a full Play Store download. When the app checks for updates, it contacts Expo's servers (<em>expo.dev</em>). Only anonymous update metadata is exchanged — no personal data, habits, or finance information is transmitted. You can review Expo's privacy practices at their website.</p>
+
+    <h2>7. Alarm Overlay and Lock Screen Display</h2>
+    <p>To ensure alarms are visible even when your screen is off or you are using another app, XtraHabit uses Android's full-screen intent and draw-over-other-apps capabilities. This means an alarm screen may appear over your lock screen or current app when an alarm fires. No data from other apps is accessed through this mechanism.</p>
+
+    <h2>8. Data Sharing</h2>
     <ul>
       <li><strong>No sale of data:</strong> we do not sell personal information.</li>
-      <li><strong>Limited sharing:</strong> trusted providers (analytics/crash reporting) as necessary.</li>
-      <li><strong>Authentication:</strong> credentials handled by providers; we do not store passwords.</li>
+      <li><strong>Limited sharing:</strong> anonymised crash/analytics data may be shared with trusted service providers (e.g. Expo) solely to maintain app quality.</li>
+      <li><strong>SMS data:</strong> never sold, shared, or transferred to any third party under any circumstance.</li>
+      <li><strong>No advertising networks:</strong> XtraHabit does not use advertising SDKs or share data with advertisers.</li>
     </ul>
 
-    <h2>Children’s Privacy</h2>
+    <h2>9. Children's Privacy</h2>
     <p>XtraHabit is not directed to children under 13. If under 13, parental consent is required. We comply with applicable child privacy laws.</p>
 
-    <h2>Security</h2>
-    <p>We use industry-standard measures (encryption in transit, restricted access). No method is 100% secure.</p>
+    <h2>10. Security</h2>
+    <p>Data stored on your device is protected by your device's own security (screen lock, encryption). App updates are delivered over encrypted HTTPS connections. No method is 100% secure.</p>
 
-    <h2>Your Rights</h2>
+    <h2>11. Your Rights</h2>
     <ul>
-      <li><strong>Delete data:</strong> clear app storage or uninstall; request deletion for account-linked data via contact.</li>
-      <li><strong>Opt-out:</strong> disable analytics/crash reporting via device settings where supported.</li>
+      <li><strong>Delete all data:</strong> clear app storage via device Settings → Apps → XtraHabit → Storage → Clear Data, or simply uninstall the app.</li>
+      <li><strong>Revoke SMS permission:</strong> device Settings → Apps → XtraHabit → Permissions → SMS → Deny.</li>
+      <li><strong>Revoke notification permission:</strong> device Settings → Apps → XtraHabit → Notifications.</li>
+      <li><strong>Revoke alarm overlay:</strong> device Settings → Apps → XtraHabit → Display over other apps.</li>
     </ul>
 
-    <h2>Changes</h2>
-    <p>We may update this policy; changes will be posted here.</p>
+    <h2>12. Changes to This Policy</h2>
+    <p>We may update this policy. Changes will be posted here with an updated effective date. Continued use of the app constitutes acceptance of the updated policy.</p>
 
-    <h2>Contact</h2>
+    <h2>13. Contact</h2>
     <p>Email: xternix.dev@gmail.com</p>
+
   </main>
 
   <footer>
