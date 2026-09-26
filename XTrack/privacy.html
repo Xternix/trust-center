@@ -61,6 +61,7 @@
       <li><strong>Statistics and progress data:</strong> habit completion history, streak counts, task goal progress — stored locally on your device.</li>
       <li><strong>Merchant memory:</strong> if you use the Finance Tracker, the app stores merchant-to-category mappings locally to auto-fill categories on future entries.</li>
       <li><strong>SMS data (optional):</strong> bank and UPI transaction messages, only when you explicitly use the "Import from SMS" feature. See Section 3.</li>
+      <li><strong>Email address (optional):</strong> if you use the Splits (expense-sharing) feature, we collect your email address to create an account and sign you in via a one-time code. This is stored on our servers (Supabase), not on-device. See Sections 5 and 11.</li>
     </ul>
 
     <h2>2. How We Use Information</h2>
@@ -99,9 +100,9 @@
 
     <h2>5. Data Storage</h2>
     <ul>
-      <li><strong>All app data is stored locally</strong> on your device using AsyncStorage (a standard Android local storage mechanism).</li>
-      <li><strong>No cloud sync:</strong> XTrack does not sync your habits, tasks, finance entries, or any personal data to external servers.</li>
-      <li><strong>Uninstalling the app</strong> permanently deletes all locally stored data.</li>
+      <li><strong>Habits, finance entries, timers, alarms, and notes are stored locally</strong> on your device using AsyncStorage (a standard Android local storage mechanism), and are never synced to external servers.</li>
+      <li><strong>Splits account data:</strong> if you sign in for the Splits feature, your email address, group memberships, and shared expense records are stored on our backend (Supabase), encrypted in transit (HTTPS/TLS), so they can be shared with other members of your expense-splitting group.</li>
+      <li><strong>Uninstalling the app</strong> permanently deletes all locally stored data. Your Splits account is not deleted by uninstalling — see Section 11.</li>
     </ul>
 
     <h2>6. Over-the-Air (OTA) Updates</h2>
@@ -113,7 +114,7 @@
     <h2>8. Data Sharing</h2>
     <ul>
       <li><strong>No sale of data:</strong> we do not sell personal information.</li>
-      <li><strong>Limited sharing:</strong> anonymised crash/analytics data may be shared with trusted service providers (e.g. Expo) solely to maintain app quality.</li>
+      <li><strong>Limited sharing:</strong> anonymised crash/analytics data may be shared with trusted service providers (e.g. Expo) solely to maintain app quality. Splits account data (email, group membership, shared expenses) is processed by our backend provider (Supabase) solely to operate the Splits feature, and is visible to other members of the same expense-splitting group.</li>
       <li><strong>SMS data:</strong> never sold, shared, or transferred to any third party under any circumstance.</li>
       <li><strong>No advertising networks:</strong> XTrack does not use advertising SDKs or share data with advertisers.</li>
     </ul>
@@ -126,7 +127,8 @@
 
     <h2>11. Your Rights</h2>
     <ul>
-      <li><strong>Delete all data:</strong> clear app storage via device Settings → Apps → XTrack → Storage → Clear Data, or simply uninstall the app.</li>
+      <li><strong>Delete all local data:</strong> clear app storage via device Settings → Apps → XTrack → Storage → Clear Data, or simply uninstall the app.</li>
+      <li><strong>Delete your Splits account:</strong> see our <a href="./account-deletion.html">Account Deletion</a> page to remove your email and account data from our servers.</li>
       <li><strong>Revoke SMS permission:</strong> device Settings → Apps → XTrack → Permissions → SMS → Deny.</li>
       <li><strong>Revoke notification permission:</strong> device Settings → Apps → XTrack → Notifications.</li>
       <li><strong>Revoke alarm overlay:</strong> device Settings → Apps → XTrack → Display over other apps.</li>
