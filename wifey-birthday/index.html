@@ -774,6 +774,42 @@
     }
     .wish-sign.show { opacity:1; }
 
+
+    /* ---- story mode ---- */
+    .screen { display:none; }
+    .screen.active { display:flex; flex-direction:column; animation:screenIn .6s ease both; }
+    .screen.active.back { animation-name:screenInBack; }
+    .hero.screen.active { display:grid; }
+    .section.screen { min-height:100svh; padding:64px 0 150px; }
+    .screen > .container { margin:auto; }
+    .screen.reveal { opacity:1; transform:none; }
+    .scroll-note { display:none; }
+    @keyframes screenIn { from { opacity:0; transform:translateX(40px); } to { opacity:1; transform:none; } }
+    @keyframes screenInBack { from { opacity:0; transform:translateX(-40px); } to { opacity:1; transform:none; } }
+
+    .progress { position:fixed; top:0; left:0; right:0; height:4px; z-index:40; background:rgba(255,255,255,.08); }
+    .progress span { display:block; height:100%; width:0; background:linear-gradient(90deg, var(--pink), var(--gold)); transition:width .5s ease; }
+    .skip-link {
+      position:fixed; top:16px; right:16px; z-index:30;
+      background:rgba(255,255,255,.06); border:1px solid var(--line); color:var(--muted);
+      padding:8px 14px; border-radius:999px; font-size:.8rem; cursor:pointer; backdrop-filter:blur(10px);
+    }
+    .nav-bar {
+      position:fixed; left:0; right:0; bottom:0; z-index:30;
+      display:flex; justify-content:center; gap:12px;
+      padding:34px 16px calc(18px + env(safe-area-inset-bottom));
+      background:linear-gradient(transparent, rgba(16,8,18,.94) 45%);
+      pointer-events:none;
+    }
+    .nav-bar .btn { pointer-events:auto; }
+    .nav-bar[hidden] { display:none; }
+    .step-label { text-align:center; color:var(--gold); letter-spacing:.2em; font-size:.78rem; text-transform:uppercase; font-weight:700; margin-bottom:10px; }
+    .timeline.single { padding-left:0; margin-top:26px; }
+    .timeline.single::before, .timeline.single .tl-item::before { display:none; }
+    .timeline.single .tl-item { margin-bottom:0; padding:30px; }
+    .timeline.single .tl-item h3 { font-size:1.6rem; }
+    .timeline.single .tl-item p { font-size:1.05rem; }
+
     @media (prefers-reduced-motion:reduce) {
       * {
         animation-duration:.001ms !important;
@@ -792,7 +828,7 @@
     <div class="container hero-grid hero-text-only">
       <div>
         <div class="eyebrow">Happy Birthday · October 4 ✨</div>
-        <h1 class="gradient-text">Happy Birthday,<br><span id="wifeName">My Love</span> ❤️</h1>
+        <h1><span class="gradient-text">Happy Birthday,<br><span id="wifeName">My Love</span></span> ❤️</h1>
         <p>
           Today is a celebration of you — your smile, your kindness, your warmth,
           and the quiet magic you bring into my life every single day. I wanted to
@@ -1028,6 +1064,13 @@
     </div>
   </section>
 
+  <div class="progress"><span id="progressFill"></span></div>
+  <button class="skip-link" id="skipBtn" hidden>Skip to the end ⏭</button>
+  <div class="nav-bar" id="navBar" hidden>
+    <button class="btn secondary" id="backBtn">← Back</button>
+    <button class="btn primary" id="nextBtn">Next →</button>
+  </div>
+
   <div class="wish-overlay" id="wishOverlay" role="dialog" aria-modal="true" aria-label="Birthday wish">
     <canvas id="confetti"></canvas>
     <button class="wish-close" id="wishClose" aria-label="Close">✕</button>
@@ -1140,7 +1183,7 @@
 
     document.getElementById("startBtn").addEventListener("click", e => {
       burst(e.clientX, e.clientY);
-      document.getElementById("special").scrollIntoView({ behavior:"smooth" });
+      setTimeout(() => go(1), 350);
     });
 
 
@@ -1208,6 +1251,73 @@
     window.addEventListener("click", e => {
       if (Math.random() > .58) burst(e.clientX, e.clientY);
     });
+
+    /* ---- story mode: one chapter per screen ---- */
+    const base = [...document.querySelectorAll("body > section")];
+    const storyItems = [...base[3].querySelectorAll(".tl-item")];
+    const storyScreens = storyItems.map((item, i) => {
+      const sec = document.createElement("section");
+      sec.className = "section screen";
+      sec.innerHTML = '<div class="container"><div class="step-label">Our story · ' + (i + 1) + ' of ' + storyItems.length + '</div><div class="timeline single"></div></div>';
+      sec.querySelector(".timeline").appendChild(item);
+      return sec;
+    });
+    storyScreens.forEach(sec => base[4].before(sec));
+    base[3].remove();
+
+    const screens = [base[0], base[1], base[2], ...storyScreens, base[4], base[5], base[6], base[7], base[8]];
+    const nextLabels = {};
+    nextLabels[1] = "Keep going →";
+    nextLabels[2] = "Our story →";
+    storyScreens.forEach((_, i) => { nextLabels[3 + i] = i < storyScreens.length - 1 ? "Next memory →" : "Our time together →"; });
+    const after = 3 + storyScreens.length;
+    nextLabels[after] = "Our little moments →";
+    nextLabels[after + 1] = "A few reasons →";
+    nextLabels[after + 2] = "My birthday wish for you →";
+    nextLabels[after + 3] = "One last thing →";
+
+    screens.forEach(sc => sc.classList.add("screen"));
+    let current = 0;
+    const navBar = document.getElementById("navBar");
+    const backBtn = document.getElementById("backBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const skipBtn = document.getElementById("skipBtn");
+
+    function go(i) {
+      if (i < 0 || i >= screens.length) return;
+      const goingBack = i < current;
+      screens[current].classList.remove("active", "back");
+      current = i;
+      const sc = screens[current];
+      sc.classList.add("active");
+      sc.classList.toggle("back", goingBack);
+      window.scrollTo(0, 0);
+      document.getElementById("progressFill").style.width = (current / (screens.length - 1) * 100) + "%";
+      const last = current === screens.length - 1;
+      navBar.hidden = current === 0;
+      skipBtn.hidden = current === 0 || last;
+      backBtn.style.visibility = "visible";
+      nextBtn.hidden = last;
+      nextBtn.textContent = nextLabels[current] || "Next →";
+    }
+    nextBtn.addEventListener("click", e => { burst(e.clientX, e.clientY); go(current + 1); });
+    backBtn.addEventListener("click", () => go(current - 1));
+    skipBtn.addEventListener("click", () => go(screens.length - 1));
+    document.addEventListener("keydown", e => {
+      if (overlay.classList.contains("open") || lightbox.classList.contains("open")) return;
+      if (e.key === "ArrowRight") go(current + 1);
+      if (e.key === "ArrowLeft") go(current - 1);
+    });
+    let touchX = null;
+    document.addEventListener("touchstart", e => { touchX = e.touches[0].clientX; }, { passive:true });
+    document.addEventListener("touchend", e => {
+      if (touchX === null || overlay.classList.contains("open") || lightbox.classList.contains("open")) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if (dx < -70) go(current + 1);
+      else if (dx > 70) go(current - 1);
+    }, { passive:true });
+    go(0);
   </script>
 </body>
 </html>
