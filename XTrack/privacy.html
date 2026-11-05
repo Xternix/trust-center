@@ -28,6 +28,7 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     }
     h2 { color: #0b5bd3; margin-top: 1.5rem; }
+    h3 { font-size: 1.05rem; margin: 1rem 0 0.25rem; }
     ul { padding-left: 1.2rem; }
     .highlight {
       background: #f0f4ff;
@@ -48,94 +49,108 @@
 <body>
   <header>
     <h1>XTrack Privacy Policy</h1>
-    <p>Effective Date: May 8, 2026</p>
+    <p>Effective Date: November 5, 2026</p>
   </header>
 
   <main>
 
+    <p>XTrack is a habit tracker with an expense tracker built in. Most of what you put into the app stays on your phone. This policy explains what stays on your phone, what reaches our server, and why.</p>
+
     <h2>1. Information We Collect</h2>
+    <h3>Stored only on your phone</h3>
     <ul>
-      <li><strong>User-provided data:</strong> habits, tasks, reminders, alarms, finance entries, timer sessions, notes, and preferences — all stored locally on your device.</li>
-      <li><strong>Device information:</strong> model, OS version, and usage logs used for crash reporting and performance improvement.</li>
-      <li><strong>Notification data:</strong> schedules and configurations for reminders and alarms, stored locally.</li>
-      <li><strong>Statistics and progress data:</strong> habit completion history, streak counts, task goal progress — stored locally on your device.</li>
-      <li><strong>Merchant memory:</strong> if you use the Finance Tracker, the app stores merchant-to-category mappings locally to auto-fill categories on future entries.</li>
-      <li><strong>SMS data (optional):</strong> bank and UPI transaction messages, only when you explicitly use the "Import from SMS" feature. See Section 3.</li>
-      <li><strong>Email address (optional):</strong> if you use the Splits (expense-sharing) feature, we collect your email address to create an account and sign you in via a one-time code. This is stored on our servers (Supabase), not on-device. See Sections 5 and 11.</li>
+      <li><strong>Habits:</strong> your habits, schedules, daily check-ins, streaks and statistics.</li>
+      <li><strong>Finance:</strong> transactions, categories, tags, budgets, bills, recurring payments, accounts, credit cards and merchant-to-category rules. Transactions created from an SMS keep a copy of that message's text so you can see where they came from.</li>
+      <li><strong>Timers, alarms and reminders:</strong> their settings and schedules.</li>
+      <li><strong>Preferences:</strong> theme, what you track, and other settings.</li>
+      <li><strong>Backups:</strong> the app keeps automatic daily backup files in its own private storage. A backup you export goes wherever you choose to save or share it.</li>
     </ul>
+    <h3>Sent to our server, only if you sign in</h3>
+    <p>You can use habits, finance, timers and alarms without an account. Signing in is needed only for Splits, Challenges and voting on the Roadmap.</p>
+    <ul>
+      <li><strong>Account:</strong> your email address (you sign in with a one-time code sent to it), your display name and your phone number. Your phone number is used so friends can find you and add you to Splits groups, and it can be linked to only one account.</li>
+      <li><strong>Splits:</strong> groups you create or join, their members, shared expenses (amount, description, who paid, how it is split) and settlements.</li>
+      <li><strong>Challenges:</strong> challenges you create or join (name, description, goal) and your daily check-ins.</li>
+      <li><strong>Roadmap:</strong> feature requests, comments and votes you post.</li>
+    </ul>
+    <h3>Sent to our server automatically</h3>
+    <ul>
+      <li><strong>Install record:</strong> when the app opens, it sends an anonymous install ID, the app version, your phone model and Android version (for example "Pixel 6a - Android 15"), and the network request's user-agent. On Android the install ID is a one-way, salted hash of the device's Android ID, so it cannot be turned back into the original ID. If you are signed in, the record is linked to your account. We use it to count active installs and see which versions are still in use.</li>
+      <li><strong>Update checks:</strong> the app downloads a small version file from our website and checks Expo's update service for app updates (see Section 6). Like any web request, these reveal your IP address to the server that answers.</li>
+    </ul>
+    <p>We do not use advertising, analytics or crash-reporting SDKs.</p>
 
     <h2>2. How We Use Information</h2>
     <ul>
-      <li><strong>Core functionality:</strong> habit tracking, task management, reminders, alarms, timers (focus, stopwatch, workout, interval), finance tracking, and progress visualisation.</li>
-      <li><strong>Notifications and alarms:</strong> delivering reminders and alarm alerts at the times you configure, including on the lock screen.</li>
-      <li><strong>Reliability:</strong> anonymised crash reports and analytics to diagnose issues and improve the app.</li>
-      <li><strong>App updates:</strong> checking for and applying over-the-air (OTA) updates via Expo's update service. See Section 6.</li>
+      <li><strong>To run the app:</strong> habit tracking, expense tracking, budgets, timers, alarms and reminders, all on your phone.</li>
+      <li><strong>To run shared features:</strong> keeping Splits groups, Challenges and the Roadmap in sync between the people who use them.</li>
+      <li><strong>To keep the app up to date:</strong> telling you when a new version is available and delivering updates.</li>
+      <li><strong>To understand usage:</strong> counting installs and app versions from the install record. We do not build advertising profiles.</li>
     </ul>
 
     <h2>3. SMS Data and the Finance Tracker</h2>
-    <div class="highlight">
-      The Finance Tracker is a core feature of XTrack. If you choose to use "Import from SMS", the app will request the READ_SMS permission to automatically detect and import bank and UPI transactions from your inbox.
-    </div>
+    <p>Recording your spending from bank SMS is a core feature of XTrack. It needs the READ_SMS and RECEIVE_SMS permissions, which you can grant or refuse.</p>
     <ul>
-      <li><strong>What we read:</strong> only financial SMS messages from banks and UPI services (transaction alerts, payment confirmations).</li>
-      <li><strong>Why we read it:</strong> to automatically create finance entries without manual input, saving you time and reducing errors.</li>
-      <li><strong>On-device only:</strong> SMS data is processed entirely on your device. It is never uploaded to any server, shared with third parties, or stored outside the app.</li>
-      <li><strong>User-controlled:</strong> SMS is read only when you explicitly tap "Import from SMS" and grant the permission. You can revoke it any time in device Settings → Apps → XTrack → Permissions → SMS.</li>
-      <li><strong>No background monitoring:</strong> the app does not monitor incoming SMS or read messages in the background.</li>
+      <li><strong>Auto-detect:</strong> if you turn on "Auto-detect from SMS" (Settings › Finance tracker), the app checks each new SMS as it arrives, including when the app is closed, and records bank, card and UPI transactions it finds. You can turn this off at any time.</li>
+      <li><strong>Import:</strong> "Import from SMS" reads the bank messages in your inbox for a date range you choose, so you can add past transactions.</li>
+      <li><strong>What we use:</strong> only transaction alerts from banks, cards and UPI services. Other messages are checked against these patterns on your phone and are not stored.</li>
+      <li><strong>On your phone only:</strong> SMS are read and processed entirely on your phone. Message text is never uploaded to our server or shared with anyone.</li>
+      <li><strong>Your control:</strong> revoke the permission at any time in device Settings › Apps › XTrack › Permissions › SMS.</li>
     </ul>
 
     <h2>4. Device Permissions Explained</h2>
     <ul>
-      <li><strong>POST_NOTIFICATIONS:</strong> to deliver habit reminders and alarm notifications.</li>
-      <li><strong>SCHEDULE_EXACT_ALARM / USE_EXACT_ALARM:</strong> to fire alarms at the precise time you set.</li>
-      <li><strong>USE_FULL_SCREEN_INTENT / SYSTEM_ALERT_WINDOW:</strong> to display alarm alerts as a full-screen overlay, including on the lock screen, so you don't miss an alarm.</li>
-      <li><strong>RECEIVE_BOOT_COMPLETED:</strong> to restore your alarm and reminder schedules automatically after a device restart.</li>
-      <li><strong>WAKE_LOCK:</strong> to keep the screen on during active timer sessions (focus timer, workout timer, stopwatch) when you have the keep-awake option enabled.</li>
-      <li><strong>MODIFY_AUDIO_SETTINGS / VIBRATE:</strong> to play alarm sounds at the volume you configure and trigger vibration for notifications.</li>
-      <li><strong>INTERNET:</strong> to check for and download over-the-air app updates. No personal data is sent.</li>
-      <li><strong>READ_SMS:</strong> only for the Finance Tracker SMS import feature. See Section 3.</li>
-      <li><strong>RECORD_AUDIO:</strong> declared by the expo-audio library included in the app. XTrack does not actively record audio.</li>
-      <li><strong>READ_EXTERNAL_STORAGE / WRITE_EXTERNAL_STORAGE:</strong> used by the app framework for accessing bundled sound assets. No personal files are read or written.</li>
+      <li><strong>READ_SMS / RECEIVE_SMS:</strong> to record transactions from bank SMS. See Section 3.</li>
+      <li><strong>POST_NOTIFICATIONS:</strong> habit reminders, alarms and timer alerts.</li>
+      <li><strong>SCHEDULE_EXACT_ALARM / USE_EXACT_ALARM:</strong> to ring alarms and reminders at the exact time you set.</li>
+      <li><strong>USE_FULL_SCREEN_INTENT:</strong> to show a ringing alarm full-screen, including on the lock screen.</li>
+      <li><strong>RECEIVE_BOOT_COMPLETED:</strong> to restore your alarms and reminders after the phone restarts.</li>
+      <li><strong>FOREGROUND_SERVICE:</strong> to finish processing a new bank SMS, and to keep timer sounds playing while the app is in the background.</li>
+      <li><strong>WAKE_LOCK / VIBRATE / MODIFY_AUDIO_SETTINGS:</strong> to keep the screen on during a timer when you choose to, vibrate, and play alarm sounds at the volume you set.</li>
+      <li><strong>INTERNET / ACCESS_NETWORK_STATE:</strong> for app updates, the install record and the signed-in features above.</li>
     </ul>
+    <p>XTrack does not use your microphone, camera, location or contacts.</p>
 
-    <h2>5. Data Storage</h2>
+    <h2>5. Data Storage and Retention</h2>
     <ul>
-      <li><strong>Habits, finance entries, timers, alarms, and notes are stored locally</strong> on your device using AsyncStorage (a standard Android local storage mechanism), and are never synced to external servers.</li>
-      <li><strong>Splits account data:</strong> if you sign in for the Splits feature, your email address, group memberships, and shared expense records are stored on our backend (Supabase), encrypted in transit (HTTPS/TLS), so they can be shared with other members of your expense-splitting group.</li>
-      <li><strong>Uninstalling the app</strong> permanently deletes all locally stored data. Your Splits account is not deleted by uninstalling — see Section 11.</li>
+      <li><strong>On your phone:</strong> data in Section 1 "Stored only on your phone" lives in the app's private storage. Uninstalling the app or clearing its storage deletes it, unless you have exported a backup.</li>
+      <li><strong>On our server:</strong> account, Splits, Challenges and Roadmap data are stored with our backend provider, Supabase, and sent over encrypted connections (HTTPS/TLS). Access rules limit each person to their own data and the groups and challenges they belong to. We keep this data until you delete your account.</li>
+      <li><strong>Signing out</strong> does not delete your habits or finance data from your phone.</li>
     </ul>
 
-    <h2>6. Over-the-Air (OTA) Updates</h2>
-    <p>XTrack uses Expo's update service to deliver app improvements without requiring a full Play Store download. When the app checks for updates, it contacts Expo's servers (<em>expo.dev</em>). Only anonymous update metadata is exchanged — no personal data, habits, or finance information is transmitted. You can review Expo's privacy practices at their website.</p>
+    <h2>6. App Updates</h2>
+    <p>XTrack uses Expo's update service to deliver fixes without a full Play Store download. When the app checks for an update it contacts Expo's servers (expo.dev) and sends technical details such as the app version and platform, never your habits, finance data or SMS. The app also downloads a version file from xternix.in to tell you when a Play Store update is available.</p>
 
-    <h2>7. Alarm Overlay and Lock Screen Display</h2>
-    <p>To ensure alarms are visible even when your screen is off or you are using another app, XTrack uses Android's full-screen intent and draw-over-other-apps capabilities. This means an alarm screen may appear over your lock screen or current app when an alarm fires. No data from other apps is accessed through this mechanism.</p>
+    <h2>7. Alarm Lock Screen Display</h2>
+    <p>So you don't miss an alarm, XTrack can show a full-screen alarm over your lock screen when it rings. No data from other apps is accessed.</p>
 
     <h2>8. Data Sharing</h2>
     <ul>
-      <li><strong>No sale of data:</strong> we do not sell personal information.</li>
-      <li><strong>Limited sharing:</strong> anonymised crash/analytics data may be shared with trusted service providers (e.g. Expo) solely to maintain app quality. Splits account data (email, group membership, shared expenses) is processed by our backend provider (Supabase) solely to operate the Splits feature, and is visible to other members of the same expense-splitting group.</li>
-      <li><strong>SMS data:</strong> never sold, shared, or transferred to any third party under any circumstance.</li>
-      <li><strong>No advertising networks:</strong> XTrack does not use advertising SDKs or share data with advertisers.</li>
+      <li><strong>No sale of data:</strong> we do not sell your personal information.</li>
+      <li><strong>Other users:</strong> your display name and the expenses, settlements and check-ins you add are visible to members of the same Splits group. In a challenge, other members see your display name, check-ins and progress on the leaderboard. Your display name is shown next to Roadmap posts and comments.</li>
+      <li><strong>Service providers:</strong> Supabase (database and sign-in), Expo (app updates) and our website host (version file). They process data only to provide these services.</li>
+      <li><strong>SMS data:</strong> never uploaded, sold or shared with anyone.</li>
+      <li><strong>Legal:</strong> we may disclose data if required by law.</li>
     </ul>
 
     <h2>9. Children's Privacy</h2>
-    <p>XTrack is not directed to children under 13. If under 13, parental consent is required. We comply with applicable child privacy laws.</p>
+    <p>XTrack is not directed at children under 13, and we do not knowingly collect personal information from them. If you believe a child under 13 has created an account, contact us and we will delete it.</p>
 
     <h2>10. Security</h2>
-    <p>Data stored on your device is protected by your device's own security (screen lock, encryption). App updates are delivered over encrypted HTTPS connections. No method is 100% secure.</p>
+    <p>Data on your phone is protected by your phone's own security, such as its screen lock and encryption. Data sent to our server travels over encrypted HTTPS connections, and database access rules restrict each user to their own records. No method is 100% secure.</p>
 
     <h2>11. Your Rights</h2>
     <ul>
-      <li><strong>Delete all local data:</strong> clear app storage via device Settings → Apps → XTrack → Storage → Clear Data, or simply uninstall the app.</li>
-      <li><strong>Delete your Splits account:</strong> see our <a href="./account-deletion.html">Account Deletion</a> page to remove your email and account data from our servers.</li>
-      <li><strong>Revoke SMS permission:</strong> device Settings → Apps → XTrack → Permissions → SMS → Deny.</li>
-      <li><strong>Revoke notification permission:</strong> device Settings → Apps → XTrack → Notifications.</li>
-      <li><strong>Revoke alarm overlay:</strong> device Settings → Apps → XTrack → Display over other apps.</li>
+      <li><strong>Export your data:</strong> Settings › Export data saves everything stored on your phone to a file.</li>
+      <li><strong>Delete data on your phone:</strong> Settings › Clear all data, clear the app's storage in device Settings, or uninstall the app.</li>
+      <li><strong>Delete your account:</strong> see our <a href="account-deletion.html">Account Deletion</a> page to remove your account and server data.</li>
+      <li><strong>Access or correct your data:</strong> edit your profile in the app, or email us.</li>
+      <li><strong>Turn off SMS:</strong> turn off "Auto-detect from SMS" in the app, or revoke the permission in device Settings › Apps › XTrack › Permissions › SMS.</li>
+      <li><strong>Turn off notifications:</strong> device Settings › Apps › XTrack › Notifications.</li>
     </ul>
 
     <h2>12. Changes to This Policy</h2>
-    <p>We may update this policy. Changes will be posted here with an updated effective date. Continued use of the app constitutes acceptance of the updated policy.</p>
+    <p>We may update this policy. Changes are posted here with a new effective date. Continuing to use the app after a change means you accept the updated policy.</p>
 
     <h2>13. Contact</h2>
     <p>Email: xternix.dev@gmail.com</p>
